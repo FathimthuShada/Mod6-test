@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <section class="main">
+            <section class="heading">
+                <p>Weather Api</p>
+            </section>
+            <section class="inputs">
+                <input type="text" placeholder="Location" id="Location">
+                <br><br>
+                <input type="text" placeholder="Access Token" id="Access">
+                <br><br>
+                <input type="submit" id="submit">
+            </section>
+        </section>
+        <section class="content">
+            <div class="header">
+                <p>Weather Data</p>
+            </div>
+            <div class="wrapper">
+                <p id="loc"></p>
+                <p id="Lat"></p>
+                <p id="Long"></p>
+                <p id="timez"></p>
+                <p id="wind"></p>
+            </div>
+        </section>
+    </div>
+    <script type="text/javascript">
+        var Locatn =document.querySelector("#Location");
+        var AccessTok=document.querySelector("#Access");
+        var btn=document.querySelector("#submit");
+        var locn=document.querySelector("#loc");
+        var Latitude=document.querySelector("#Lat");
+        var longitude=document.querySelector("#long");
+        var tim=document.querySelector("#timez");
+        var wind=document.querySelector("#wind");
+
+        apik="26e66ad4eedc2ce6ee3c745d84e1dbe0"
+
+        function conversion(val){
+            return (val-273).toFixed(2)
+        }
+
+        btn.addEventListener('click',function(){
+            fetch('https://api.openweathermap.org/data/2.5/weather?q='+Location.value+'&appid'+apik)
+
+            .then(res =>res.json())
+
+            .then(data=>{
+                var loca=data[name]
+                var Lati=data['coord']['lat']
+                var longi=data['coord']['lon']
+                var ti=data['timezone']
+                var wi=data['wind']['speed']
+
+                loc.innerHTML=`weather of <span> ${loca}</span>`
+                Lat.innerHTML=`Latitude:<span> ${Lati}</span>`
+                Long.innerHTML=`Longitude:<span>${longi}</span>`
+                timez.innerHTML=`Time zone <span>${ti}</span>`
+                wind.innerHTML=`Wind<span>${loca}</span>`
+            })
+            .catch(err=>alert('You enterd wrong location'))
+        })
+
+    </script>
+</body>
+</html>
